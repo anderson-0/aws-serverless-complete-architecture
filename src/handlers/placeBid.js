@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk';
 import createError from 'http-errors';
 
+import { getAuctionById } from './getAuction';
 import commonMiddleware from '../../lib/commonMiddleware';
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -9,6 +10,8 @@ async function placBid(event, context) {
 
   const { id } = event.pathParameters;
   const { amount } = event.body;
+
+  const auction = await getAuctionById(id);
 
   const params = {
     TableName: process.env.AUCTIONS_TABLE_NAME,
