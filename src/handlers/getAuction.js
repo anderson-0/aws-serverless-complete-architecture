@@ -28,7 +28,7 @@ export async function getAuctionById(id) {
 }
 
 async function getAuction(event, context) {
-  const { id } = event.pathParameters; 
+  const { id } = event.pathParameters;
 
   const auction = await getAuctionById(id);
 
