@@ -12,6 +12,8 @@ provider:
   region: us-east-1
   iamRoleStatements:
     - ${file(iam/AuctionsTableIAM.yml):AuctionsTableIAM}
+  environment:
+      AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
 
 resources:
   Resources:
@@ -25,8 +27,6 @@ functions:
       - http:
           method: POST
           path: /auction
-    environment:
-      AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
 
 custom:
   AuctionsTable:
