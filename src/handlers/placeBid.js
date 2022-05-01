@@ -13,6 +13,10 @@ async function placBid(event, context) {
 
   const auction = await getAuctionById(id);
 
+  if (amount <= auction.highestBid.amount) {
+    throw new createError.BadRequest(`Bid amount must be greater than ${auction.highestBid.amount}`);
+  }
+
   const params = {
     TableName: process.env.AUCTIONS_TABLE_NAME,
     Key: { id },
