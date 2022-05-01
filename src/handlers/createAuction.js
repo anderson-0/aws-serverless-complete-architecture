@@ -8,7 +8,7 @@ import httpErrorHandler from '@middy/http-error-handler';
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 async function createAuction(event, context) {
-  const { title } = JSON.parse(event.body);
+  const { title } = event.body;
 
   const auction = {
     id: uuid(),
