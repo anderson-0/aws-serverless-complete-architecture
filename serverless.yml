@@ -25,3 +25,10 @@ functions:
       - http:
           method: POST
           path: /auction
+    environment:
+      AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
+
+custom:
+  AuctionsTable:
+    name: !Ref AuctionsTable
+    arn: !GetAtt AuctionsTable.Arn
