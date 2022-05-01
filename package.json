@@ -1,8 +1,8 @@
 {
-  "name": "sls-base",
+  "name": "aws-serverless-complete-architecture",
   "version": "1.0.0",
-  "description": "Codingly template for Serverless Framework projects",
-  "author": "Ariel Weinberger <ariel@codingly.io>",
+  "description": "AWS Architecture",
+  "author": "Anderson <anderson.consultant.it@outlook.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.3",
