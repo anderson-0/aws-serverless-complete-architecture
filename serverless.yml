@@ -1,5 +1,4 @@
-service: aws-serverless-complete-architecture
-
+service: aws-serverless-auction-service
 plugins:
   - serverless-bundle
   - serverless-pseudo-parameters

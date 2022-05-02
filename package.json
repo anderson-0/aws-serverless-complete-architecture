@@ -1,7 +1,7 @@
 {
-  "name": "aws-serverless-complete-architecture",
+  "name": "aws-serverless-complete-architecture-auction-service",
   "version": "1.0.0",
-  "description": "AWS Architecture",
+  "description": "AWS Serverless Framework Architecture - Auction Service",
   "author": "Anderson <anderson.consultant.it@outlook.com>",
   "license": "MIT",
   "devDependencies": {
