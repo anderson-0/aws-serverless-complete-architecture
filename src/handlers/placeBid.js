@@ -13,6 +13,14 @@ async function placBid(event, context) {
   const { id } = event.pathParameters;
   const { amount } = event.body;
 
+  // Email from bidder will be extracted from the JWT token
+  // intercepted by auth-service lambda middleware
+  const { email: bidderEmail } = event.requestContext.authorizer;
+
+  if (!email) {
+    throw new createError.Unauthorized('Email not found in JWT token. Please fix Auth0 scope.');
+  }
+
   const auction = await getAuctionById(id);
 
   if (auction.status !== 'OPEN') {
@@ -26,9 +34,10 @@ async function placBid(event, context) {
   const params = {
     TableName: process.env.AUCTIONS_TABLE_NAME,
     Key: { id },
-    UpdateExpression: 'SET highestBid.amount = :amount',
+    UpdateExpression: 'SET highestBid.amount = :amount, highestBid.bidder = :bidder',
     ExpressionAttributeValues: {
       ':amount': amount,
+      ':bidder': bidderEmail,
     },
     ReturnValues: 'ALL_NEW', // Returns the updated item
   };
