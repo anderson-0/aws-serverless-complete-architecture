@@ -11,6 +11,14 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 async function createAuction(event, context) {
   const { title } = event.body;
 
+  // Email from person that creates the auction
+  // will be extracted from JWT token intercepted by auth-service lambda middleware
+  const { email } = event.requestContext.authorizer;
+
+  if (!email) {
+    throw new createError.Unauthorized('Email not found in JWT token. Please fix Auth0 scope.');
+  }
+
   const now = new Date();
   const endDate = new Date();
 
@@ -24,7 +32,8 @@ async function createAuction(event, context) {
     endingAt: endDate.toISOString(),
     highestBid: {
       amount: 0,
-    }
+    },
+    seller: email,
   };
 
   try {
