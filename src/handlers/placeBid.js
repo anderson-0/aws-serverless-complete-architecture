@@ -28,6 +28,11 @@ async function placBid(event, context) {
     throw new createError.BadRequest('You cannot bid on your own auction');
   }
 
+  // Prevents double bidding
+  if (bidderEmail === auction.highestBid.bidder) {
+    throw new createError.BadRequest('You are already the highest bidder on this auction');
+  }
+
   if (auction.status !== 'OPEN') {
     throw createError.BadRequest('Auction is not open');
   }
