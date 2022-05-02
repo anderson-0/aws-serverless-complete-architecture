@@ -35,6 +35,8 @@ functions:
           method: GET
           path: /auctions
 
+
+
   getAuction:
     handler: src/handlers/getAuction.handler
     events:
@@ -59,3 +61,4 @@ custom:
   AuctionsTable:
     name: !Ref AuctionsTable
     arn: !GetAtt AuctionsTable.Arn
+  authorizer: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:aws-serverless-auth-service-${self:provider.stage}-auth
