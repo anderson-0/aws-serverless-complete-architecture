@@ -23,6 +23,11 @@ async function placBid(event, context) {
 
   const auction = await getAuctionById(id);
 
+  // Prevents people from bidding on their own auctions
+  if (bidderEmail === auction.seller) {
+    throw new createError.BadRequest('You cannot bid on your own auction');
+  }
+
   if (auction.status !== 'OPEN') {
     throw createError.BadRequest('Auction is not open');
   }
