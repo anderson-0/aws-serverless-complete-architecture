@@ -24,3 +24,7 @@ sls logs -f <lambda> -t
 ```
 sls invoke -f <lambda> -l
 ```
+
+## Global Secondary Index (GSI) statusAndEndDate
+Global secondary indexes allow us to search for something besides the primary key (id in this case).
+Since we want to be able to search for auctions that maintained the OPEN status for more than 1 hour.
