@@ -1,7 +1,6 @@
 service: aws-serverless-auction-service
 plugins:
   - serverless-bundle
-  - serverless-pseudo-parameters
 
 provider:
   name: aws
@@ -64,4 +63,4 @@ custom:
   AuctionsTable:
     name: !Ref AuctionsTable
     arn: !GetAtt AuctionsTable.Arn
-  authorizer: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:aws-serverless-auth-service-${self:provider.stage}-auth
+  authorizer: arn:aws:lambda:${aws:region}:${aws:accountId}:function:aws-serverless-auth-service-${self:provider.stage}-auth
