@@ -17,7 +17,7 @@ async function placBid(event, context) {
   // intercepted by auth-service lambda middleware
   const { email: bidderEmail } = event.requestContext.authorizer;
 
-  if (!email) {
+  if (!bidderEmail) {
     throw new createError.Unauthorized('Email not found in JWT token. Please fix Auth0 scope.');
   }
 
