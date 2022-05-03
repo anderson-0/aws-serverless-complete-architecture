@@ -10,7 +10,12 @@ import { uploadPictureToS3 } from '../../lib/uploadPictureToS3';
 export async function uploadAuctionPicture(event, context) {
 
   const { id } = event.pathParameters;
+  const { email } = event.requestContext.authorizer;
   const auction = await getAuctionById(id);
+
+  if (auction.seller !== email) {
+    throw new createError.Forbidden("Only the auction's seller can upload a picture.");
+  }
   const imageAsStringBase64 = event.body.replace(/^data:image\/\w+;base64,/, ''); // remove data:image/png;base64,
   const imageAsBuffer = Buffer.from(imageAsStringBase64, 'base64');
 
