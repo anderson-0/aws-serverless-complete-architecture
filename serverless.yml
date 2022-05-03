@@ -10,8 +10,10 @@ provider:
   region: us-east-1
   iamRoleStatements:
     - ${file(iam/AuctionsTableIAM.yml):AuctionsTableIAM}
+    - ${file(iam/MailQueueIAM.yml):MailQueueIAM}
   environment:
       AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
+      MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
 
 resources:
   Resources:
@@ -64,3 +66,6 @@ custom:
     name: !Ref AuctionsTable
     arn: !GetAtt AuctionsTable.Arn
   authorizer: arn:aws:lambda:${aws:region}:${aws:accountId}:function:aws-serverless-auth-service-${self:provider.stage}-auth
+  MailQueue:
+    arn: ${cf:aws-serverless-notification-service-${self:provider.stage}.MailQueueArn}
+    url: ${cf:aws-serverless-notification-service-${self:provider.stage}.MailQueueUrl}
