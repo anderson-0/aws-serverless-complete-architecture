@@ -1,25 +1,25 @@
- AuctionsTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: AuctionsTable-${self:provider.stage}
-        BillingMode: PAY_PER_REQUEST
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-          - AttributeName: status
-            AttributeType: S
-          - AttributeName: endingAt
-            AttributeType: S
+AuctionsTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: AuctionsTable-${self:provider.stage}
+    BillingMode: PAY_PER_REQUEST
+    AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+      - AttributeName: status
+        AttributeType: S
+      - AttributeName: endingAt
+        AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+    GlobalSecondaryIndexes:
+      - IndexName: statusAndEndDateIndex
         KeySchema:
-          - AttributeName: id
+          - AttributeName: status
             KeyType: HASH
-        GlobalSecondaryIndexes:
-          - IndexName: statusAndEndDateIndex
-            KeySchema:
-              - AttributeName: status
-                KeyType: HASH
-              - AttributeName: endingAt
-                KeyType: RANGE
-            Projection:
-              ProjectionType: ALL # Query all attributes in the virtual table when searching by status and endingAt
+          - AttributeName: endingAt
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL # Query all attributes in the virtual table when searching by status and endingAt
                 
